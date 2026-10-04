@@ -1,0 +1,79 @@
+@import "tailwindcss";
+
+:root {
+  --background: #faf9f7;
+  --foreground: #1c1c1c;
+  --muted: #6b6b6b;
+  --border: #e5e2dd;
+  --surface: #ffffff;
+  --surface-alt: #f3f1ec;
+  --accent: #a8503a;
+  --accent-foreground: #ffffff;
+  --success: #3f6d4e;
+  --danger: #b3392f;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+  --color-surface: var(--surface);
+  --color-surface-alt: var(--surface-alt);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-success: var(--success);
+  --color-danger: var(--danger);
+  --font-sans: var(--font-geist-sans);
+  --font-serif: var(--font-playfair);
+  --font-mono: var(--font-geist-mono);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+.focus-ring {
+  outline: none;
+}
+
+.focus-ring:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/*
+ * Branded placeholder for large editorial image slots (hero, category and
+ * collection banners) when no photo is available at all — e.g. no
+ * Unsplash key configured and no seeded fallback. A soft diagonal wash in
+ * the theme's own palette plus a faint oversized wordmark, so the layout
+ * still reads as considered rather than broken.
+ */
+.gradient-fallback {
+  background: linear-gradient(135deg, var(--surface-alt) 0%, var(--border) 55%, var(--surface-alt) 100%);
+}
+
+.gradient-fallback::after {
+  content: "S";
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-serif);
+  font-size: clamp(6rem, 22vw, 16rem);
+  color: var(--foreground);
+  opacity: 0.06;
+  line-height: 1;
+  pointer-events: none;
+}

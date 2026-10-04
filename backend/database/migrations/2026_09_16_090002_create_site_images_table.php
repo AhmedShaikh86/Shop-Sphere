@@ -1,0 +1,29 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Holds homepage image slots (hero, editorial section, ...) that aren't
+     * tied to a Category/Collection row of their own.
+     */
+    public function up(): void
+    {
+        Schema::create('site_images', function (Blueprint $table) {
+            $table->id();
+            $table->string('key')->unique();
+            $table->string('url');
+            $table->string('photo_credit_name')->nullable();
+            $table->string('photo_credit_url')->nullable();
+            $table->timestamps();
+        });
+    }
+
+    public function down(): void
+    {
+        Schema::dropIfExists('site_images');
+    }
+};

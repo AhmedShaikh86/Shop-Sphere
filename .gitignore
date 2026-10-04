@@ -1,0 +1,9 @@
+# OS / editor cruft that can show up at the repo root
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.log
+
+# Each app manages its own dependencies, build output, and .env files
+# via backend/.gitignore and frontend/.gitignore.
