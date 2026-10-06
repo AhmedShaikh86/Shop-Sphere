@@ -2,6 +2,13 @@
 # Container entrypoint: prepare caches, run migrations, seed an empty database, then serve.
 set -e
 
+# A SQLite database lives inside the container, so create the file on first boot.
+if [ "$DB_CONNECTION" = "sqlite" ]; then
+    DB_DATABASE="${DB_DATABASE:-/app/database/database.sqlite}"
+    export DB_DATABASE
+    touch "$DB_DATABASE"
+fi
+
 php artisan config:cache
 php artisan route:cache
 php artisan migrate --force

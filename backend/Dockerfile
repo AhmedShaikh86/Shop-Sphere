@@ -1,5 +1,6 @@
-# Production image for hosting the ShopSphere API (e.g. on Render).
-# Uses PostgreSQL in production; see docker/start.sh for the boot steps.
+# Production image for hosting the ShopSphere API (e.g. on Render or Hugging Face Spaces).
+# Works with PostgreSQL or a SQLite file inside the container; see docker/start.sh for the boot steps.
+# Folders are world-writable because some hosts run the container as an arbitrary user.
 FROM php:8.4-cli
 
 RUN apt-get update \
@@ -19,7 +20,7 @@ COPY . .
 RUN composer dump-autoload --optimize --no-dev \
     && php artisan package:discover --ansi \
     && chmod +x docker/start.sh \
-    && chown -R www-data:www-data storage bootstrap/cache
+    && chmod -R a+rwX storage bootstrap/cache database public
 
 ENV APP_ENV=production \
     APP_DEBUG=false \
