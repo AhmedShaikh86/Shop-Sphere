@@ -23,18 +23,11 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        Schema::create('coupon_usages', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('coupon_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('order_id')->constrained()->cascadeOnDelete();
-            $table->timestamps();
-        });
+        // coupon_usages references orders, so it is created in the orders migration.
     }
 
     public function down(): void
     {
-        Schema::dropIfExists('coupon_usages');
         Schema::dropIfExists('coupons');
     }
 };

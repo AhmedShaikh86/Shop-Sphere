@@ -26,10 +26,20 @@ return new class extends Migration
 
             $table->index('status');
         });
+
+        // Created here rather than with coupons because it needs the orders table to exist.
+        Schema::create('coupon_usages', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('coupon_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('order_id')->constrained()->cascadeOnDelete();
+            $table->timestamps();
+        });
     }
 
     public function down(): void
     {
+        Schema::dropIfExists('coupon_usages');
         Schema::dropIfExists('orders');
     }
 };
