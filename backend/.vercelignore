@@ -4,3 +4,6 @@
 /database/*.sqlite
 /storage/logs/*
 .env
+# Vercel serves public/ as static files; these would expose source instead of running.
+/public/index.php
+/public/.htaccess

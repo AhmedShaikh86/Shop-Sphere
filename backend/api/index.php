@@ -38,4 +38,12 @@ if (! is_dir('/tmp/views')) {
 $_SERVER['SCRIPT_NAME'] = $_SERVER['PHP_SELF'] = '/index.php';
 $_SERVER['SCRIPT_FILENAME'] = __DIR__.'/../public/index.php';
 
-require __DIR__.'/../public/index.php';
+// Same bootstrap as public/index.php. That file is left out of the Vercel upload
+// (see .vercelignore) because Vercel serves public/ as static files and would show its source.
+define('LARAVEL_START', microtime(true));
+
+require __DIR__.'/../vendor/autoload.php';
+
+$app = require_once __DIR__.'/../bootstrap/app.php';
+
+$app->handleRequest(Illuminate\Http\Request::capture());
